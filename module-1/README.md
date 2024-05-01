@@ -381,6 +381,9 @@ const greetFriends2 = (...friends: string[]) => {
     console.log(`Hi ${friend}`);
   });
 };
+
+const friendsList1 = ["Nadim", "Shakil", "Asif"];
+greetFriends2(...friendsList1);
 ```
 
 # Destructuring In Typescript
