@@ -1,19 +1,88 @@
-<h1>Explore Basic Types of Typescript</h1>
+<h1 align='center'>Explore Basic Types of Typescript</h1>
 
+## Topics
+
+1. Intro to typescript technocrat mission
+2. Introduction to typescript
+3. install typescript and node version manager
+4. Basic data types
+5. Object , Optional and Literal Types
+6. Function in typescript
+7. Spread and Rest Operator
+8. Destructuring in typescript
+9. Type alias in typescript
+10. Union and Intersection types
+11. Ternary, optional chaining & nullish coalescing operator
+12. Never, unknown and nullable type
+
+## Table of Contents
+
+- [What is TypeScript ?](#what-is-typescript-)
+  - [Lacking in JavaScript](#lacking-in-javascript)
+  - [Benefits of Using TypeScript](#benefits-of-using-typescript)
+  - [Drawbacks of Using TypeScript](#drawbacks-of-using-typescript)
 - [Basic data types](#basic-data-types)
-  - [Primitive Types \& Non Primitive Types](#primitive-types--non-primitive-types)
-    - [Primitive:](#primitive)
-    - [Not Primitive types:](#not-primitive-types)
+  - [Primitive:](#primitive)
+  - [Not Primitive types:](#not-primitive-types)
+  - [JS Types in Ts:](#js-types-in-ts)
+  - [TS own Types](#ts-own-types)
 - [Object , Optional and Literal Types](#object--optional-and-literal-types)
 - [Function in typescript](#function-in-typescript)
   - [Function Types](#function-types)
 - [Spread and Rest Operator](#spread-and-rest-operator)
 - [Destructuring In Typescript](#destructuring-in-typescript)
 - [Type Alias In Typescript](#type-alias-in-typescript)
+- [Union And Intersection Types](#union-and-intersection-types)
+  - [Union type ( | )](#union-type---)
+  - [Intersection type ( \& )](#intersection-type---)
+- [Ternary, Optional Chaining \& Nullish Coalescing Operator](#ternary-optional-chaining--nullish-coalescing-operator)
+  - [Ternary operator ( ? )](#ternary-operator---)
+  - [Nullish Coalescing Operator](#nullish-coalescing-operator)
+  - [Optional Chaining](#optional-chaining)
+- [Never, Unknown And Nullable Type](#never-unknown-and-nullable-type)
+  - [Unknown type](#unknown-type)
+  - [Never Type](#never-type)
+
+# What is TypeScript ?
+
+TypeScript is an Object-Oriented Programming Languages that is build on top of JavaScript with Extra Features.
+
+<p align="center">
+  <b>JavaScript Extends TypeScript</b>
+</p>
+
+<p align="center" >
+  <img src="../assets/typescript.jpg" alt="image" width="300"/>
+</p>
+
+### Lacking in JavaScript
+
+When working in a large Application with multiple Developers.
+
+- Very difficult to maintain large codebase
+- Hard to find bugs
+- Catch errors only in runtime
+- JavaScript is Dynamically typed language
+
+<p align="center">
+  <b>TypeScript code can be transpiled into older version of JavaScript</b>
+</p>
+
+### Benefits of Using TypeScript
+
+- Support older Browser
+- Type safety
+- increase your productivity
+- less bugs and less testing
+
+### Drawbacks of Using TypeScript
+
+- Type complexities
+- Limited library support
+- Over Engineering
+- Migration Challenges
 
 # Basic data types
-
-## Primitive Types & Non Primitive Types
 
 ### Primitive:
 
@@ -22,7 +91,7 @@
 - boolean
 - null
 - undefined
-  - symbol
+- symbol
 
 ### Not Primitive types:
 
@@ -30,7 +99,27 @@
 - Tuple
 - Object
 
-```tsx
+### JS Types in Ts:
+
+- Number
+- String
+- Boolean
+- Null
+- Undefined
+- Object
+- Symbol
+
+### TS own Types
+
+- Interface
+- Void
+- Array
+- Tuple
+- Enum
+- Union
+- Intersection
+
+```ts
 // Basic Data Types
 
 // string
@@ -70,7 +159,7 @@ ageName[0] = 55;
 
 # Object , Optional and Literal Types
 
-```tsx
+```ts
 // Reference Type --> Object
 
 const user: {
@@ -100,7 +189,7 @@ user.company = "ph";
 - Normal Function
 - Arrow Function
 
-```tsx
+```ts
 // Learning Functions
 /**
  * Functions types
@@ -137,7 +226,7 @@ const newArray: number[] = arr.map((num: number): number => num * num);
 
 # Spread and Rest Operator
 
-```tsx
+```ts
 //  Spread and Rest Operator
 
 // spread operator
@@ -186,7 +275,7 @@ const greetFriends2 = (...friends: string[]) => {
 
 # Destructuring In Typescript
 
-```tsx
+```ts
 // Destructuring In Typescript
 const user1 = {
   id: 125,
@@ -216,7 +305,7 @@ console.log(secondFriend);
 
 # Type Alias In Typescript
 
-```tsx
+```ts
 // Type Alias In Typescript
 
 type Student = {
@@ -250,4 +339,151 @@ const admin: IsAdmin = true;
 // type aliases for functions
 type AddFunc = (num1: number, num2: number) => number;
 const addFun: AddFunc = (num1, num2) => num1 + num2;
+```
+
+# Union And Intersection Types
+
+### Union type ( | )
+
+```ts
+type FrontendDeveloper = "fakibuzDeveloper" | "juniorDeveloper";
+type FullStackDeveloper = "frontendDeveloper" | "fullstackDeveloper";
+type Developer = FrontendDeveloper | FullStackDeveloper;
+
+const newDeveloper: FrontendDeveloper = "juniorDeveloper";
+
+type User = {
+  name: string;
+  email?: string;
+  gender: "male" | "female";
+  bloodGroup: "A+" | "AB+" | "B+" | "O+" | "O-";
+};
+
+const newUser: User = {
+  name: "Noyon",
+  gender: "male",
+  bloodGroup: "A+",
+};
+```
+
+### Intersection type ( & )
+
+```ts
+type FrontendDeveloper = {
+  skills: string[];
+  designation1: "Front-end Developer";
+};
+
+type BackendDeveloper = {
+  skills: string[];
+  designation2: "Back-end Developer";
+};
+
+type FullStackDeveloper = FrontendDeveloper & BackendDeveloper;
+
+const fullstackDeveloper: FullStackDeveloper = {
+  skills: ["JavaScript", "ReactJS", "ExpressJS"],
+  designation1: "Front-end Developer",
+  designation2: "Back-end Developer",
+};
+```
+
+# Ternary, Optional Chaining & Nullish Coalescing Operator
+
+### Ternary operator ( ? )
+
+```ts
+// Ternary, Optional Chaining & Nullish Coalescing Operator
+const age: number = 18;
+
+if (age >= 18) {
+  console.log("adult");
+} else {
+  console.log("not adult");
+}
+
+// ternary operator
+const isAdult: string = age >= 18 ? "adult" : "not adult";
+console.log(isAdult);
+```
+
+### Nullish Coalescing Operator
+
+```ts
+// nullish coalescing operator
+// null / undefined -> when we make decision based on this
+const isAuthenticated = null;
+const result1 = isAuthenticated ?? "Guest"; // only work in null / undefined
+const result2 = isAuthenticated ? isAuthenticated : "Guest";
+console.log({ result1, result2 });
+```
+
+### Optional Chaining
+
+```ts
+// optional chaining operator
+type User = {
+  name: string;
+  address: {
+    city: string;
+    road: string;
+    presetAddress: string;
+    permanentAddress?: string;
+  };
+};
+
+const user3: User = {
+  name: "Noyon",
+  address: {
+    city: "Gazipur",
+    road: "Awesome Road",
+    presetAddress: "Gazipur City",
+  },
+};
+
+const permanentAddress: string =
+  user3?.address?.permanentAddress ?? "No Permanent Address";
+console.log({ permanentAddress });
+```
+
+# Never, Unknown And Nullable Type
+
+### Unknown type
+
+```ts
+const searchName = (value: string) => {
+  if (value) {
+    console.log("Searching....");
+  } else {
+    console.log("There is nothing to search");
+  }
+};
+
+// Unknown type
+const getSpeedInMeterPerSecond = (value: unknown) => {
+  if (typeof value === "number") {
+    const convertedSpeed = ((value * 1000) / 3600).toFixed(2);
+    console.log(`The speed is ${convertedSpeed} ms^-1`);
+  } else if (typeof value === "string") {
+    const [result, _unit] = value.split(" "); // array destructuring
+    const convertedSpeed = ((parseInt(result) * 1000) / 3600).toFixed(2);
+    console.log(`The speed is ${convertedSpeed} ms^-1`);
+  } else {
+    console.log("Wrong input!");
+  }
+};
+
+getSpeedInMeterPerSecond("1000 kmh^-1");
+getSpeedInMeterPerSecond(null);
+```
+
+### Never Type
+
+```ts
+// never type
+const throwError = (msg: string): never => {
+  throw new Error(msg);
+};
+
+throwError("Muslik se error hogaya!");
 ```
