@@ -13,3 +13,4 @@
 ### Modules
 
 - [Explore Basic Types of TypeScript](./module-1/README.md)
+- [Explore Advance Types of TypeScript](./module-2/README.md)
