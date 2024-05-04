@@ -30,6 +30,13 @@
 - [Generic with Interface](#generic-with-interface)
   - [Using Type alias](#using-type-alias)
   - [Using interface](#using-interface)
+- [Function with generics](#function-with-generics)
+- [Constraints in typescript](#constraints-in-typescript)
+- [Constraint using keyof operator](#constraint-using-keyof-operator)
+- [Asynchronous typescript](#asynchronous-typescript)
+- [Conditional types](#conditional-types)
+- [Mapped types](#mapped-types)
+- [Utility types](#utility-types)
 
 # Type assertion / type narrowing
 
@@ -358,5 +365,381 @@ const richDeveloper: Developer<AppleWatch, YamahaBike> = {
     brand: "Yamaha",
     cc: "150cc",
   },
+};
+```
+
+# Function with generics
+
+```tsx
+function firstElement<T>(arr: T[]): T {
+  return arr[0];
+}
+
+const numbers: number[] = [1, 2, 3, 4, 5];
+const firstNumber = firstElement(numbers); // firstNumber is inferred as number
+
+const strings: string[] = ["apple", "banana", "cherry"];
+const firstString = firstElement(strings); // firstString is inferred as string
+```
+
+```tsx
+// 2-5 Function With Generics
+const createArray = (param: string): string[] => {
+  return [param];
+};
+const res1 = createArray("Bangladesh");
+
+// with generics
+const createArrayWithGeneric = <T,>(param: T): T[] => {
+  return [param];
+};
+const res2 = createArrayWithGeneric<string>("BD");
+
+type UserInfo = {
+  id: number;
+  name: string;
+};
+const res3 = createArrayWithGeneric<UserInfo>({
+  id: 123,
+  name: "Mr. Dev",
+});
+```
+
+```tsx
+// create tuple with generics
+const createTupleWithGenerics = <T, Q>(param1: T, param2: Q): [T, Q] => {
+  return [param1, param2];
+};
+
+const res4 = createTupleWithGenerics<string, number>("BD", 147570);
+const res5 = createTupleWithGenerics<string, { name: string }>("BD", {
+  name: "Asia",
+});
+
+const addCourseToStudent = <T,>(student: T) => {
+  const course: string = "Next Level Web Development";
+
+  return {
+    ...student,
+    course,
+  };
+};
+
+const student1 = addCourseToStudent<{
+  name: string;
+  email: string;
+  devType: string;
+}>({
+  name: "Student 1",
+  email: "student1@gmail.com",
+  devType: "NLWD",
+});
+
+const student2 = addCourseToStudent<{
+  name: string;
+  email: string;
+  smartWatch: string;
+}>({
+  name: "Student 2",
+  email: "student2@gmail.com",
+  smartWatch: "Apple Watch",
+});
+
+console.log(student2);
+```
+
+# Constraints in typescript
+
+```tsx
+// 2-6: Constraints In Typescript
+
+// constraints -> force
+
+interface Student {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const addCourseToStudent1 = <T extends Student>(student: T) => {
+  const course: string = "Next Level Web Development";
+
+  return {
+    ...student,
+    course,
+  };
+};
+
+const student3 = addCourseToStudent1<{
+  id: number;
+  name: string;
+  email: string;
+  devType: string;
+}>({
+  id: 111,
+  name: "Student 1",
+  email: "student1@gmail.com",
+  devType: "NLWD",
+});
+
+const student4 = addCourseToStudent1<{
+  id: number;
+  name: string;
+  email: string;
+  smartWatch: string;
+}>({
+  id: 222,
+  name: "Student 2",
+  email: "student2@gmail.com",
+  smartWatch: "Apple Watch",
+});
+
+const student5 = addCourseToStudent1<Student>({
+  id: 333,
+  name: "Student 3",
+  email: "student3@gmail.com",
+});
+```
+
+# Constraint using keyof operator
+
+```tsx
+// 2-7 Constraint Using keyof operator
+
+type Vehicle = {
+  bike: string;
+  car: string;
+  ship: string;
+};
+
+type Owner1 = "bike" | "car" | "ship"; // manually
+type Owner2 = keyof Vehicle;
+
+const richPerson: Owner1 = "bike";
+
+const getPropertyValue = <OBJECT, KEY extends keyof OBJECT>(
+  obj: OBJECT,
+  key: KEY
+) => {
+  return obj[key];
+};
+
+const user = {
+  name: "Rahman",
+  age: 21,
+  gender: "Male",
+  contactNo: "+8801700000000",
+  address: "Bangladesh",
+};
+
+console.log(getPropertyValue(user, "contactNo"));
+```
+
+# Asynchronous typescript
+
+```tsx
+// 2-8: Asynchronous Typescript
+// promise
+
+// simulate
+const createPromise1 = (): Promise<string> => {
+  return new Promise<string>((resolve, reject) => {
+    const data: string = "something";
+    if (data) {
+      resolve(data);
+    } else {
+      reject("failed to load data");
+    }
+  });
+};
+```
+
+```tsx
+type Something = {
+  something: string;
+};
+
+const createPromise2 = (): Promise<Something> => {
+  return new Promise<Something>((resolve, reject) => {
+    const data: Something = {
+      something: "something",
+    };
+    if (data) {
+      resolve(data);
+    } else {
+      reject("failed to load data");
+    }
+  });
+};
+
+// calling create promise function
+const showData = async () => {
+  const data = await createPromise2();
+  // console.log(data);
+  return data;
+};
+
+showData();
+```
+
+```tsx
+// api call to json placeholder
+type Todo = {
+  id: number;
+  userId: number;
+  title: string;
+  completed: boolean;
+};
+
+const getTodo = async (): Promise<Todo> => {
+  const res = await fetch("https://jsonplaceholder.typicode.com/todos/1");
+  const data = await res.json();
+  return data;
+};
+
+getTodo().then((data) => console.log(data));
+```
+
+# Conditional types
+
+```tsx
+// 2-9: Conditional Types
+
+// case 1:
+type a1 = number;
+type b1 = string;
+type x = a1 extends null ? true : false; // conditional type
+type y = a1 extends null ? true : b1 extends undefined ? undefined : any;
+// conditional type
+```
+
+```tsx
+// case 2:
+type Sheikh = {
+  bike: string;
+  car: string;
+  ship: string;
+};
+
+// case ase kina / bike ase kina / ship ase kina / tractor ase kina
+// keyof Sheikh => "bike" | "car" | "ship"
+
+// type CheckVehicle<T> = T extends "bike" | "car" | "ship" ? true : false; // manually check
+type CheckVehicle<T> = T extends keyof Sheikh ? true : false; // manually check
+
+// type hasBike = CheckVehicle<"bike">; // manually check
+type hasBike = CheckVehicle<Sheikh["ship"]>;
+```
+
+# Mapped types
+
+```tsx
+// 2-10: Mapped Types
+
+// recap of map method
+const arrOfNumbers: number[] = [1, 2, 3, 4, 5];
+const arrOfStrings: string[] = arrOfNumbers.map((number) => number.toString());
+```
+
+```tsx
+type AreaNumber = {
+  height: number;
+  width: number;
+};
+
+// map manually
+type AreaString1 = {
+  height: string;
+  width: string;
+};
+```
+
+```tsx
+type AreaNumber = {
+  height: number;
+  width: number;
+};
+
+// using map type
+type AreaString2 = {
+  [key in "height" | "width"]: string;
+};
+
+type AreaString3 = {
+  [key in keyof AreaNumber]: string;
+};
+
+// loop up type
+type Height = AreaNumber["height"];
+//            type[key] => value
+
+// fully dynamic mapped type
+type AreaString4<T> = {
+  [key in keyof T]: T[key];
+};
+
+const area4: AreaString4<{ height: number; width: number }> = {
+  height: 44,
+  width: 34,
+};
+```
+
+# Utility types
+
+```tsx
+// 2-11 Utility Types
+
+type Person = {
+  name: string;
+  age: number;
+  gender: string;
+  contactNo: string;
+  email?: string;
+};
+
+// Pick
+type Properties1 = Pick<Person, "name" | "age">; // manually
+type Properties2 = Pick<Person, keyof Person>; // dynamically
+
+// Omit
+type ContactInfo = Omit<Person, "name" | "age" | "gender">;
+
+// Required
+type PersonRequired = Required<Person>;
+
+// Partial
+type PersonPartial = Partial<Person>;
+
+// Readonly
+type PersonReadonly = Readonly<Person>;
+const person1: PersonReadonly = {
+  name: "Noyon",
+  age: 21,
+  gender: "Male",
+  contactNo: "+8801700000000",
+  email: "noyon@example.com",
+};
+
+// person1.name = "";
+// Cannot assign to 'name' because it is a read-only property.
+
+// Record
+type MyObj1 = {
+  a: string;
+  b: string;
+}; // manually
+
+type MyObj2 = Record<string, string>; // dynamically
+type MyObj3 = Record<string, unknown>; // fully dynamically
+
+const obj1: MyObj2 = {
+  a: "aa",
+  b: "bb",
+  c: "cc",
+};
+
+const obj2: MyObj3 = {
+  name: "Next Dev",
+  age: 21,
 };
 ```
