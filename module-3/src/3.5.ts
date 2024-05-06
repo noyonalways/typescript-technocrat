@@ -1,35 +1,35 @@
 // 3-5: Access Modifiers
-class BankAccount {
-  public id: number;
-  public name: string;
-  protected _balance: number;
+// class BankAccount {
+//   public id: number;
+//   public name: string;
+//   protected _balance: number;
 
-  constructor(id: number, name: string, balance: number) {
-    this.id = id;
-    this.name = name;
-    this._balance = balance;
-  }
+//   constructor(id: number, name: string, balance: number) {
+//     this.id = id;
+//     this.name = name;
+//     this._balance = balance;
+//   }
 
-  addDeposit(amount: number) {
-    this._balance = this._balance + amount;
-    return;
-  }
+//   addDeposit(amount: number) {
+//     this._balance = this._balance + amount;
+//     return;
+//   }
 
-  getBalance() {
-    return this._balance;
-  }
-}
+//   getBalance() {
+//     return this._balance;
+//   }
+// }
 
-class StudentAccount extends BankAccount {
-  public get balance() {
-    return this._balance;
-  }
-}
+// class StudentAccount extends BankAccount {
+//   public get balance() {
+//     return this._balance;
+//   }
+// }
 
-const poorMan = new BankAccount(111, "Mr. Poor", 20);
-const studentMan = new StudentAccount(222, "Mr. Student", 50);
+// const poorMan = new BankAccount(111, "Mr. Poor", 20);
+// const studentMan = new StudentAccount(222, "Mr. Student", 50);
 
-console.log(studentMan.balance);
+// console.log(studentMan.balance);
 
 /**
  * Access modifiers
