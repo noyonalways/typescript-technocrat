@@ -35,7 +35,7 @@
 
 ### Problems
 
-- [Basic Problems](./problems/README.md)
+- [Basic Problems Set](./problems/README.md)
 
 ## Contact
 
