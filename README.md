@@ -33,6 +33,10 @@
 - [Explore Advance Types of TypeScript](./module-2/README.md)
 - [Object Oriented Typescript](./module-3/README.md)
 
+### Problems
+
+- [Basic Problems](./problems/README.md)
+
 ## Contact
 
 - Email: [noyonrahman2003@gmail.com](mailto:noyonrahman2003@gmail.com)
